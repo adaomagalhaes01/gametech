@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = ({ onOpenModal }) => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -18,6 +20,8 @@ const Navbar = ({ onOpenModal }) => {
         { name: 'Serviços', href: '#servicos' },
         { name: 'Equipa', href: '#equipa' },
     ];
+
+    const toggleMenu = () => setIsOpen(!isOpen);
 
     return (
         <nav
@@ -53,15 +57,46 @@ const Navbar = ({ onOpenModal }) => {
                     </button>
                 </div>
 
-                {/* Mobile Menu Button (Simplified for now) */}
+                {/* Mobile Menu Button */}
                 <div className="md:hidden">
-                    <button className="text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
+                    <button onClick={toggleMenu} className="text-white hover:text-game-purple transition-colors">
+                        {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
                     </button>
                 </div>
             </div>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, x: '100%' }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: '100%' }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className="fixed inset-0 top-[88px] h-[calc(100vh-88px)] bg-game-dark/95 backdrop-blur-xl z-40 md:hidden flex flex-col items-center justify-center gap-8 p-6"
+                    >
+                        {navLinks.map((link) => (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                onClick={() => setIsOpen(false)}
+                                className="font-tech text-2xl uppercase tracking-[0.2em] text-white hover:text-game-purple transition-all"
+                            >
+                                {link.name}
+                            </a>
+                        ))}
+                        <button
+                            onClick={() => {
+                                onOpenModal();
+                                setIsOpen(false);
+                            }}
+                            className="btn-primary w-full py-4 text-lg font-tech mt-4"
+                        >
+                            Orçamento
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </nav>
     );
 };

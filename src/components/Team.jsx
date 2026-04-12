@@ -20,7 +20,7 @@ const Team = () => {
         {
             name: 'Desenvolvimento de Soluções',
             members: [
-                { name: 'Adão Magalhães', role: 'Lead Developer', img: '/Adão_Magalhães.jpg' },
+                { name: 'Adão Magalhães', role: 'Lead Developer', img: '/Adao_Magalhaes.jpg' },
                 { name: 'Shelsio Ferreira', role: 'Fullstack Expert', img: '/Shelsio_Ferreira.JPG' },
                 { name: 'Adalmercio Almedia', role: 'Backend Developer', img: '/Adalmercio_Almedia.JPG' },
                 { name: 'Diva Ventura', role: 'Frontend Developer', img: '/Diva_Ventura.jpeg' },

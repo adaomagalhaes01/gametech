@@ -17,7 +17,7 @@ const BudgetModal = ({ onClose }) => {
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                className="relative w-full max-w-lg bg-game-dark border neon-border-purple rounded-2xl p-8 z-10"
+                className="relative w-full max-w-md md:max-w-lg bg-game-dark border neon-border-purple rounded-2xl p-6 md:p-8 z-10"
             >
                 <button
                     onClick={onClose}
