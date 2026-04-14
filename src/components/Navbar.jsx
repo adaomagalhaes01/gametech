@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ onOpenModal }) => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -49,6 +50,12 @@ const Navbar = ({ onOpenModal }) => {
                             {link.name}
                         </a>
                     ))}
+                    <Link
+                        to="/login"
+                        className="font-tech text-sm uppercase tracking-widest text-game-purple hover:text-white transition-colors border border-game-purple/50 px-4 py-2 rounded-lg"
+                    >
+                        Entrar
+                    </Link>
                     <button
                         onClick={onOpenModal}
                         className="btn-primary py-2 px-6 text-sm"
@@ -85,6 +92,13 @@ const Navbar = ({ onOpenModal }) => {
                                 {link.name}
                             </a>
                         ))}
+                        <Link
+                            to="/login"
+                            onClick={() => setIsOpen(false)}
+                            className="font-tech text-xl uppercase tracking-widest text-game-purple border border-game-purple/50 w-full text-center py-4 rounded-xl"
+                        >
+                            Entrar no Painel
+                        </Link>
                         <button
                             onClick={() => {
                                 onOpenModal();
