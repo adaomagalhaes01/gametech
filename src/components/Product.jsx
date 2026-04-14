@@ -1,78 +1,75 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Coins, Car, MapPin, Trophy } from 'lucide-react';
+import { Leaf, Ghost, Map, Sword } from 'lucide-react';
 
 const Product = () => {
     const scenarios = [
-        { name: 'Luanda', img: '/assets/luanda.png' },
-        { name: 'Talatona', img: '/assets/talatona.png' },
-        { name: 'Camama', img: '/assets/luanda.png' }, // Reusing or simulating
-        { name: 'Viana', img: '/assets/talatona.png' },
+        { name: 'Vale das Flores', img: '/assets/game_forest.jpg' },
+        { name: 'Montanha de Cristal', img: '/assets/game_action.jpg' },
+        { name: 'Grutas Sombrias', img: 'https://images.unsplash.com/photo-1509023467864-1ecbb39636c8?auto=format&fit=crop&q=80&w=400' },
+        { name: 'Castelo do Sombrio', img: 'https://images.unsplash.com/photo-1533154683836-84ea7a0bc310?auto=format&fit=crop&q=80&w=400' },
     ];
 
     return (
-        <section id="jogo" className="py-24 bg-game-dark/50">
+        <section id="jogo" className="py-24 bg-white">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-20">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-game-purple font-tech text-sm uppercase tracking-[0.4em] mb-4"
+                        className="text-game-primary font-tech text-xs uppercase tracking-[0.4em] mb-4 font-bold"
                     >
-                        Nosso Produto Flagship
+                        Showcase Product
                     </motion.h2>
                     <motion.h3
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-6xl font-tech font-black text-white uppercase italic"
+                        className="section-title text-game-dark"
                     >
-                        Angola <span className="text-game-blue">Traffic Dash</span>
+                        JORNADA DA COELHA: <span className="text-game-primary">O SEGREDO DAS CENOURAS</span>
                     </motion.h3>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
                         className="relative"
                     >
-                        <div className="aspect-video rounded-3xl overflow-hidden neon-border-blue relative group">
-                            <img src="/assets/luanda.png" alt="Gameplay" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-game-dark via-transparent to-transparent opacity-60"></div>
+                        <div className="aspect-[4/3] bg-gray-100 border-2 border-game-dark relative group overflow-hidden">
+                            <img
+                                src="/assets/game_action.jpg"
+                                alt="Gameplay Jornada da Coelha"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
 
-                            {/* Simulated UI Bits */}
-                            <div className="absolute top-6 right-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-lg border border-white/20 flex items-center gap-2">
-                                <Coins className="text-yellow-400 w-5 h-5" />
-                                <span className="font-tech text-white">12,450</span>
-                            </div>
-                            <div className="absolute bottom-6 left-6 flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-full border-4 border-game-blue border-t-transparent animate-spin"></div>
-                                <div className="text-white">
-                                    <p className="text-xs uppercase opacity-60">Localização</p>
-                                    <p className="font-tech font-bold uppercase">Baía de Luanda</p>
+                            {/* HUD Mockup */}
+                            <div className="absolute top-6 left-6 flex gap-2">
+                                <div className="w-8 h-8 bg-game-primary border-2 border-white flex items-center justify-center font-pixel text-white text-[10px]">3</div>
+                                <div className="h-8 w-32 bg-white/20 backdrop-blur-md border border-white/40 flex items-center px-2">
+                                    <div className="h-2 w-full bg-game-primary"></div>
                                 </div>
                             </div>
                         </div>
-
-                        {/* Decorative Elements */}
-                        <div className="absolute -z-10 -top-10 -left-10 w-40 h-40 bg-game-blue/20 blur-3xl rounded-full"></div>
-                        <div className="absolute -z-10 -bottom-10 -right-10 w-40 h-40 bg-game-purple/20 blur-3xl rounded-full"></div>
+                        {/* Shadow Effect */}
+                        <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-game-primary -z-10 bg-game-primary/5"></div>
                     </motion.div>
 
-                    <div className="space-y-8">
+                    <div className="space-y-12">
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             className="flex gap-6"
                         >
-                            <div className="flex-shrink-0 w-14 h-14 bg-game-purple/20 flex items-center justify-center rounded-xl neon-border-purple">
-                                <Car className="text-game-purple w-8 h-8" />
+                            <div className="flex-shrink-0 w-12 h-12 bg-game-primary text-white flex items-center justify-center">
+                                <Leaf size={24} />
                             </div>
                             <div>
-                                <h4 className="text-xl font-tech font-bold text-white uppercase mb-2">Aventuras de Taxi</h4>
-                                <p className="text-white/60">Assume o controle de um taxi lendário e navega pelas ruas movimentadas de Angola. Velocidade e estratégia são essenciais.</p>
+                                <h4 className="text-xl font-tech font-black text-game-dark uppercase italic mb-2 tracking-tighter">O Vale Mágico</h4>
+                                <p className="text-game-dark/60 leading-relaxed">Em Cenouralândia, as cenouras mágicas dão vida e proteção. Explore cenários vibrantes desenhados à mão com estética pixel art retro.</p>
                             </div>
                         </motion.div>
 
@@ -82,12 +79,12 @@ const Product = () => {
                             transition={{ delay: 0.1 }}
                             className="flex gap-6"
                         >
-                            <div className="flex-shrink-0 w-14 h-14 bg-game-blue/20 flex items-center justify-center rounded-xl neon-border-blue">
-                                <Coins className="text-game-blue w-8 h-8" />
+                            <div className="flex-shrink-0 w-12 h-12 bg-game-dark text-white flex items-center justify-center">
+                                <Ghost size={24} />
                             </div>
                             <div>
-                                <h4 className="text-xl font-tech font-bold text-white uppercase mb-2">Coleciona Moedas</h4>
-                                <p className="text-white/60">Recolhe moedas espalhadas pelo mapa para desbloquear upgrades, novos veículos e cenários exclusivos da nossa terra.</p>
+                                <h4 className="text-xl font-tech font-black text-game-dark uppercase italic mb-2 tracking-tighter">A Sombra de Sombrio</h4>
+                                <p className="text-game-dark/60 leading-relaxed">Enfrente o espírito Sombrio e seus capangas que querem dominar a floresta. Cada fase esconde segredos sobre o passado do vale.</p>
                             </div>
                         </motion.div>
 
@@ -97,29 +94,29 @@ const Product = () => {
                             transition={{ delay: 0.2 }}
                             className="flex gap-6"
                         >
-                            <div className="flex-shrink-0 w-14 h-14 bg-white/10 flex items-center justify-center rounded-xl border border-white/30">
-                                <MapPin className="text-white w-8 h-8" />
+                            <div className="flex-shrink-0 w-12 h-12 bg-game-accent text-white flex items-center justify-center">
+                                <Sword size={24} />
                             </div>
                             <div>
-                                <h4 className="text-xl font-tech font-bold text-white uppercase mb-2">Cenários Reais</h4>
-                                <p className="text-white/60">Explora Luanda, Talatona, Camama e Viana com uma fidelidade visual impressionante e estilo artístico único.</p>
+                                <h4 className="text-xl font-tech font-black text-game-dark uppercase italic mb-2 tracking-tighter">Mecânicas Precisas</h4>
+                                <p className="text-game-dark/60 leading-relaxed">Plataforma 2D clássica com controles responsivos, saltos desafiadores e colecionáveis raros espalhados por cada mundo.</p>
                             </div>
                         </motion.div>
                     </div>
                 </div>
 
-                <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-0">
                     {scenarios.map((s, idx) => (
                         <motion.div
                             key={idx}
-                            whileHover={{ scale: 1.05 }}
-                            className="relative rounded-2xl overflow-hidden aspect-video border border-white/10 group cursor-pointer"
+                            whileHover={{ y: -10 }}
+                            className="relative aspect-video group cursor-pointer overflow-hidden"
                         >
-                            <img src={s.img} alt={s.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" loading="lazy" decoding="async" />
-                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                                <span className="font-tech font-bold text-lg tracking-widest text-white uppercase">{s.name}</span>
+                            <img src={s.img} alt={s.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                            <div className="absolute inset-0 bg-game-dark/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span className="font-tech font-black text-xl text-white uppercase italic tracking-tighter">{s.name}</span>
+                                <div className="w-12 h-1 bg-game-primary mt-2"></div>
                             </div>
-                            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-0 h-1 bg-game-blue transition-all duration-300 group-hover:w-3/4"></div>
                         </motion.div>
                     ))}
                 </div>

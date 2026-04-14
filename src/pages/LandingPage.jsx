@@ -26,18 +26,18 @@ const LandingPage = () => {
     const closeModal = () => setIsModalOpen(false);
 
     return (
-        <div className="relative bg-game-dark">
+        <div className="relative bg-white">
             <AnimatePresence>
                 {loading && (
                     <motion.div
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center bg-game-dark"
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
                     >
                         <div className="relative h-20 w-20">
-                            <div className="absolute inset-0 rounded-full border-4 border-game-purple border-t-transparent animate-spin"></div>
-                            <div className="absolute inset-2 rounded-full border-4 border-game-blue border-b-transparent animate-spin-slow"></div>
-                            <div className="absolute inset-0 flex items-center justify-center font-tech font-bold text-xs tracking-tighter text-white">GT</div>
+                            <div className="absolute inset-0 rounded-full border-4 border-game-primary border-t-transparent animate-spin"></div>
+                            <div className="absolute inset-2 rounded-full border-4 border-game-accent border-b-transparent animate-spin-slow"></div>
+                            <div className="absolute inset-0 flex items-center justify-center font-tech font-bold text-xs tracking-tighter text-game-dark">GT</div>
                         </div>
                     </motion.div>
                 )}
@@ -53,7 +53,7 @@ const LandingPage = () => {
                     <main>
                         <Hero onOpenModal={openModal} />
                         <div className="relative">
-                            <div className="absolute inset-0 grid-pattern pointer-events-none opacity-20 -z-10 h-full w-full"></div>
+                            <div className="absolute inset-0 grid-pattern pointer-events-none opacity-40 -z-10 h-full w-full"></div>
                             <Suspense fallback={<div className="h-40 flex items-center justify-center text-game-purple">Carregando...</div>}>
                                 <About />
                                 <Product />

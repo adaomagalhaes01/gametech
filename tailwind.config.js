@@ -7,19 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        'game-purple': {
-          DEFAULT: '#8A2BE2',
-          glow: 'rgba(138, 43, 226, 0.5)',
-        },
-        'game-blue': {
-          DEFAULT: '#00BFFF',
-          glow: 'rgba(0, 191, 255, 0.5)',
-        },
-        'game-dark': '#0B0B0F',
+        'game-primary': '#FF4655', // Vermelho vibrante estilo Riot/Valorant
+        'game-accent': '#FFB800', // Cor de cenoura/ouro
+        'game-forest': '#7A8A25', // Verde do seu jogo
+        'game-earth': '#633C1D',  // Marrom do seu jogo
+        'game-light': '#F9F9F9',
+        'game-dark': '#111111',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         tech: ['Outfit', 'sans-serif'],
+        pixel: ['"Press Start 2P"', 'cursive'], // Para o toque retro
       },
       animation: {
         'glow-pulse': 'glow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',

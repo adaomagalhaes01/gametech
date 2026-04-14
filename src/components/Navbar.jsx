@@ -26,18 +26,14 @@ const Navbar = ({ onOpenModal }) => {
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-game-dark/80 backdrop-blur-md py-4' : 'bg-transparent py-6'
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md py-4 border-b border-gray-100' : 'bg-transparent py-6'
                 }`}
         >
             <div className="container mx-auto px-6 flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                    <img
-                        src="/assets/logo-new.png"
-                        alt="Game Tech Logo"
-                        className="h-16 w-auto object-contain"
-                        loading="eager"
-                        decoding="async"
-                    />
+                    <span className="font-tech font-black text-2xl tracking-tighter text-game-dark uppercase italic">
+                        GAME <span className="text-game-primary">TECH</span>
+                    </span>
                 </div>
 
                 <div className="hidden md:flex items-center gap-8">
@@ -45,20 +41,20 @@ const Navbar = ({ onOpenModal }) => {
                         <a
                             key={link.name}
                             href={link.href}
-                            className="font-tech text-sm uppercase tracking-widest text-white/70 hover:text-white transition-colors"
+                            className="font-tech text-xs uppercase tracking-[0.2em] text-game-dark/70 hover:text-game-primary transition-colors"
                         >
                             {link.name}
                         </a>
                     ))}
                     <Link
                         to="/login"
-                        className="font-tech text-sm uppercase tracking-widest text-game-purple hover:text-white transition-colors border border-game-purple/50 px-4 py-2 rounded-lg"
+                        className="font-tech text-xs uppercase tracking-[0.2em] text-game-dark hover:text-game-primary transition-colors"
                     >
                         Entrar
                     </Link>
                     <button
                         onClick={onOpenModal}
-                        className="btn-primary py-2 px-6 text-sm"
+                        className="btn-primary py-2 px-6 text-xs"
                     >
                         Orçamento
                     </button>
@@ -66,7 +62,7 @@ const Navbar = ({ onOpenModal }) => {
 
                 {/* Mobile Menu Button */}
                 <div className="md:hidden">
-                    <button onClick={toggleMenu} className="text-white hover:text-game-purple transition-colors">
+                    <button onClick={toggleMenu} className="text-game-dark hover:text-game-primary transition-colors">
                         {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
                     </button>
                 </div>
@@ -76,18 +72,17 @@ const Navbar = ({ onOpenModal }) => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100%' }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed inset-0 top-[88px] h-[calc(100vh-88px)] bg-game-dark/95 backdrop-blur-xl z-40 md:hidden flex flex-col items-center justify-center gap-8 p-6"
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="fixed inset-0 top-[88px] h-[calc(100vh-88px)] bg-white z-40 md:hidden flex flex-col items-center justify-center gap-8 p-6"
                     >
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className="font-tech text-2xl uppercase tracking-[0.2em] text-white hover:text-game-purple transition-all"
+                                className="font-tech text-3xl uppercase tracking-tighter font-black text-game-dark hover:text-game-primary transition-all italic"
                             >
                                 {link.name}
                             </a>
@@ -95,9 +90,9 @@ const Navbar = ({ onOpenModal }) => {
                         <Link
                             to="/login"
                             onClick={() => setIsOpen(false)}
-                            className="font-tech text-xl uppercase tracking-widest text-game-purple border border-game-purple/50 w-full text-center py-4 rounded-xl"
+                            className="font-tech text-xl uppercase tracking-widest text-game-dark border border-gray-200 w-full text-center py-4"
                         >
-                            Entrar no Painel
+                            Entrar
                         </Link>
                         <button
                             onClick={() => {

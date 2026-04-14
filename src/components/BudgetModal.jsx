@@ -63,85 +63,74 @@ const BudgetModal = ({ onClose }) => {
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                className="relative w-full max-w-md md:max-w-lg bg-game-dark border neon-border-purple rounded-2xl p-6 md:p-8 z-10"
+                className="relative w-full max-w-md md:max-w-xl bg-white border-2 border-game-dark p-8 md:p-12 z-10 shadow-[20px_20px_0px_0px_rgba(255,70,85,1)]"
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
+                    className="absolute top-6 right-6 text-game-dark/40 hover:text-game-primary transition-colors"
                 >
-                    <X className="w-6 h-6" />
+                    <X className="w-8 h-8" />
                 </button>
 
-                <h3 className="text-3xl font-tech font-bold text-white uppercase italic mb-2">Solicitar <span className="text-game-purple">Orçamento</span></h3>
-                <p className="text-white/50 text-sm mb-8">Conte-nos sobre o seu projeto e criaremos algo épico juntos.</p>
+                <h3 className="section-title text-game-dark mb-4">ENTRAR EM <span className="text-game-primary">CONTATO</span></h3>
+                <p className="text-game-dark/50 text-sm mb-10 font-bold uppercase tracking-widest">Faça parte da história da Cenouralândia.</p>
 
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                    <div className="space-y-4">
-                        <div>
-                            <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">Seu Nome *</label>
+                <form className="space-y-8" onSubmit={handleSubmit}>
+                    <div className="space-y-6">
+                        <div className="relative">
+                            <label className="block text-[10px] uppercase tracking-[0.3em] text-game-dark/40 mb-2 font-bold font-tech">Seu Nome *</label>
                             <input
                                 name="nome"
                                 type="text"
                                 required
-                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-game-purple transition-colors"
-                                placeholder="Ex: João Silva"
+                                className="w-full bg-gray-50 border-2 border-game-dark px-4 py-4 text-game-dark focus:outline-none focus:border-game-primary transition-colors"
+                                placeholder="LUNA O'HARE"
                             />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">Email *</label>
+                                <label className="block text-[10px] uppercase tracking-[0.3em] text-game-dark/40 mb-2 font-bold font-tech">Email *</label>
                                 <input
                                     name="email"
                                     type="email"
                                     required
-                                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-game-blue transition-colors"
-                                    placeholder="email@exemplo.com"
+                                    className="w-full bg-gray-50 border-2 border-game-dark px-4 py-4 text-game-dark focus:outline-none focus:border-game-primary transition-colors"
+                                    placeholder="LUNA@VALEMAGICO.COM"
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">Telefone</label>
-                                <input
-                                    name="telefone"
-                                    type="tel"
-                                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-game-blue transition-colors"
-                                    placeholder="+244 ..."
-                                />
+                                <label className="block text-[10px] uppercase tracking-[0.3em] text-game-dark/40 mb-2 font-bold font-tech">Interesse *</label>
+                                <select
+                                    name="servico"
+                                    required
+                                    className="w-full bg-gray-50 border-2 border-game-dark px-4 py-4 text-game-dark focus:outline-none focus:border-game-primary transition-colors appearance-none"
+                                >
+                                    <option>Quero Jogar Demo</option>
+                                    <option>Investimento</option>
+                                    <option>Feedback Multimídia</option>
+                                </select>
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">Tipo de Serviço *</label>
-                            <select
-                                name="servico"
-                                required
-                                className="w-full bg-game-dark/80 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-game-purple transition-colors appearance-none"
-                            >
-                                <option>Plano Básico</option>
-                                <option>Plano Intermediário</option>
-                                <option>Plano Premium</option>
-                                <option>Consultoria Gamer</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">Descrição do Projeto *</label>
+                            <label className="block text-[10px] uppercase tracking-[0.3em] text-game-dark/40 mb-2 font-bold font-tech">Mensagem *</label>
                             <textarea
                                 name="descricao"
                                 rows="4"
                                 required
-                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-game-purple transition-colors resize-none"
-                                placeholder="Fale um pouco sobre o jogo que deseja criar..."
+                                className="w-full bg-gray-50 border-2 border-game-dark px-4 py-4 text-game-dark focus:outline-none focus:border-game-primary transition-colors resize-none"
+                                placeholder="FALE SOBRE SEU INTERESSE NO PROJETO..."
                             ></textarea>
                         </div>
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full btn-primary flex items-center justify-center gap-3 group"
+                        className="w-full btn-primary flex items-center justify-center gap-3 group py-6 text-xl"
                     >
-                        Enviar Pedido
-                        <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        ENVIAR MENSAGEM
+                        <Send className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </button>
                 </form>
             </motion.div>
