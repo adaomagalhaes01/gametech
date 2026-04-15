@@ -16,11 +16,11 @@ import {
 } from 'lucide-react';
 import { getBudgetRequests } from '../components/BudgetModal';
 
-const StatCard = ({ label, value, icon: Icon, trend, trendValue, isDarkMode, onClick }) => (
+const StatCard = ({ label, value, icon: Icon, trend, trendValue, onClick }) => (
     <motion.div
         whileHover={{ y: -5 }}
         onClick={onClick}
-        className={`${isDarkMode ? 'glass-card' : 'bg-white p-6 rounded-xl shadow-sm border border-gray-100'} p-6 transition-all ${onClick ? 'cursor-pointer' : ''}`}
+        className={`glass-card p-6 transition-all ${onClick ? 'cursor-pointer' : ''}`}
     >
         <div className="flex justify-between items-start mb-4">
             <div className="p-3 rounded-xl bg-game-purple/10 text-game-purple border border-game-purple/10">
@@ -31,13 +31,12 @@ const StatCard = ({ label, value, icon: Icon, trend, trendValue, isDarkMode, onC
                 {trendValue}
             </div>
         </div>
-        <p className={`${isDarkMode ? 'text-white/60' : 'text-gray-500'} text-sm mb-1`}>{label}</p>
-        <h3 className={`text-2xl font-tech font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{value}</h3>
+        <p className="text-white/60 text-sm mb-1">{label}</p>
+        <h3 className="text-2xl font-tech font-bold text-white">{value}</h3>
     </motion.div>
 );
 
 const DashboardHome = () => {
-    const { isDarkMode } = useOutletContext();
     const navigate = useNavigate();
     const [budgetRequests, setBudgetRequests] = useState([]);
 
@@ -70,8 +69,8 @@ const DashboardHome = () => {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className={`text-4xl font-tech font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>Painel de Controle</h1>
-                <p className={`${isDarkMode ? 'text-white/60' : 'text-gray-500'} text-lg`}>Visão geral do sistema GameTech Angola.</p>
+                <h1 className="text-4xl font-tech font-bold text-white mb-2">Painel de Controle</h1>
+                <p className="text-white/60 text-lg">Visão geral do sistema GameTech Angola.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -81,7 +80,6 @@ const DashboardHome = () => {
                     icon={ShoppingCart}
                     trend="up"
                     trendValue="+12.5%"
-                    isDarkMode={isDarkMode}
                 />
                 <StatCard
                     label="Novos Usuários"
@@ -89,7 +87,6 @@ const DashboardHome = () => {
                     icon={Users}
                     trend="up"
                     trendValue="+5.2%"
-                    isDarkMode={isDarkMode}
                 />
                 <StatCard
                     label="Saldo da Carteira"
@@ -97,7 +94,6 @@ const DashboardHome = () => {
                     icon={Wallet}
                     trend="down"
                     trendValue="-2.1%"
-                    isDarkMode={isDarkMode}
                 />
                 <StatCard
                     label="Solicitações Pendentes"
@@ -105,24 +101,23 @@ const DashboardHome = () => {
                     icon={MessageSquare}
                     trend="up"
                     trendValue={`${budgetRequests.length} total`}
-                    isDarkMode={isDarkMode}
                     onClick={() => navigate('/admin/messages')}
                 />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Últimas Solicitações de Orçamento */}
-                <div className={`lg:col-span-2 ${isDarkMode ? 'glass-card' : 'bg-white p-8 rounded-xl shadow-sm border border-gray-100'} min-h-[400px]`}>
+                <div className="lg:col-span-2 glass-card min-h-[400px]">
                     <div className="flex items-center justify-between mb-8">
-                        <h2 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Últimas Solicitações de Orçamento</h2>
+                        <h2 className="text-xl font-bold text-white">Últimas Solicitações de Orçamento</h2>
                         <button onClick={() => navigate('/admin/messages')} className="text-game-purple text-sm font-bold hover:underline">Ver tudo</button>
                     </div>
 
                     {budgetRequests.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-16 text-center">
                             <MessageSquare className="w-12 h-12 text-white/10 mb-4" />
-                            <p className={`${isDarkMode ? 'text-white/40' : 'text-gray-400'} text-sm`}>Nenhuma solicitação de orçamento ainda.</p>
-                            <p className={`${isDarkMode ? 'text-white/30' : 'text-gray-300'} text-xs mt-1`}>Envie um pedido pelo site para testar.</p>
+                            <p className="text-white/40 text-sm">Nenhuma solicitação de orçamento ainda.</p>
+                            <p className="text-white/30 text-xs mt-1">Envie um pedido pelo site para testar.</p>
                         </div>
                     ) : (
                         <div className="space-y-4">
@@ -130,22 +125,22 @@ const DashboardHome = () => {
                                 <div
                                     key={req.id}
                                     onClick={() => navigate('/admin/messages')}
-                                    className={`flex items-center justify-between p-4 ${isDarkMode ? 'bg-white/5 border-white/5 hover:border-white/10' : 'bg-gray-50 border-gray-100 hover:border-gray-200'} rounded-xl border transition-colors cursor-pointer`}
+                                    className="flex items-center justify-between p-4 bg-white/5 border-white/5 hover:border-white/10 rounded-xl border transition-colors cursor-pointer"
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 rounded-lg bg-game-purple/10 flex items-center justify-center">
                                             <User className="w-6 h-6 text-game-purple" />
                                         </div>
                                         <div>
-                                            <p className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{req.name}</p>
+                                            <p className="font-medium text-white">{req.name}</p>
                                             <div className="flex items-center gap-2">
                                                 <Briefcase className="w-3 h-3 text-game-blue" />
-                                                <span className={`text-xs ${isDarkMode ? 'text-game-blue' : 'text-blue-600'}`}>{req.service}</span>
+                                                <span className="text-xs text-game-blue">{req.service}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <span className={`text-[10px] ${isDarkMode ? 'text-white/30' : 'text-gray-400'}`}>
+                                        <span className="text-[10px] text-white/30">
                                             <Clock className="w-3 h-3 inline mr-1" />
                                             {formatDate(req.date)}
                                         </span>
@@ -162,8 +157,8 @@ const DashboardHome = () => {
                 </div>
 
                 <div className="space-y-8">
-                    <div className={`${isDarkMode ? 'glass-card' : 'bg-white p-8 rounded-xl shadow-sm border border-gray-100'}`}>
-                        <h2 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-6`}>Serviços Ativos</h2>
+                    <div className="glass-card">
+                        <h2 className="text-xl font-bold text-white mb-6">Serviços Ativos</h2>
                         <div className="space-y-4">
                             {[
                                 { name: 'Manutenção PC', count: 12, icon: Briefcase },
@@ -175,16 +170,16 @@ const DashboardHome = () => {
                                         <div className="w-8 h-8 rounded-lg bg-game-blue/10 flex items-center justify-center">
                                             <service.icon className="w-4 h-4 text-game-blue" />
                                         </div>
-                                        <span className={`text-sm ${isDarkMode ? 'text-white/80' : 'text-gray-600'}`}>{service.name}</span>
+                                        <span className="text-sm text-white/80">{service.name}</span>
                                     </div>
-                                    <span className={`text-xs font-bold ${isDarkMode ? 'text-game-blue' : 'text-gray-900'}`}>{service.count}</span>
+                                    <span className="text-xs font-bold text-game-blue">{service.count}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    <div className={`${isDarkMode ? 'glass-card' : 'bg-white p-8 rounded-xl shadow-sm border border-gray-100'}`}>
-                        <h2 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-6`}>Jogadores Online</h2>
+                    <div className="glass-card">
+                        <h2 className="text-xl font-bold text-white mb-6">Jogadores Online</h2>
                         <div className="space-y-4">
                             {[
                                 { name: 'António Luanda', level: 99, status: 'Em Jogo' },
@@ -192,11 +187,11 @@ const DashboardHome = () => {
                                 { name: 'João Huambo', level: 150, status: 'Em Jogo' },
                             ].map((player, i) => (
                                 <div key={i} className="flex items-center gap-4 p-3 hover:bg-white/5 rounded-lg transition-colors">
-                                    <div className={`w-10 h-10 rounded-full ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-gray-100 border-gray-200'} flex items-center justify-center border`}>
+                                    <div className="w-10 h-10 rounded-full bg-white/5 border-white/10 flex items-center justify-center border">
                                         <Users className="w-5 h-5 text-white/40" />
                                     </div>
                                     <div className="flex-1">
-                                        <p className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{player.name}</p>
+                                        <p className="text-sm font-bold text-white">{player.name}</p>
                                         <p className="text-white/40 text-xs">Nível {player.level}</p>
                                     </div>
                                     <div className="flex items-center gap-2">

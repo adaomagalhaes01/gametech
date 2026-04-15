@@ -26,12 +26,12 @@ const Navbar = ({ onOpenModal }) => {
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md py-4 border-b border-gray-100' : 'bg-transparent py-6'
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-game-dark/90 backdrop-blur-md py-4 border-b border-white/5 shadow-2xl shadow-game-primary/5' : 'bg-transparent py-6'
                 }`}
         >
             <div className="container mx-auto px-6 flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                    <span className="font-tech font-black text-2xl tracking-tighter text-game-dark uppercase italic">
+                    <span className="font-tech font-black text-2xl tracking-tighter text-white uppercase italic">
                         GAME <span className="text-game-primary">TECH</span>
                     </span>
                 </div>
@@ -41,14 +41,14 @@ const Navbar = ({ onOpenModal }) => {
                         <a
                             key={link.name}
                             href={link.href}
-                            className="font-tech text-xs uppercase tracking-[0.2em] text-game-dark/70 hover:text-game-primary transition-colors"
+                            className="font-tech text-xs uppercase tracking-[0.2em] text-white/70 hover:text-game-primary transition-colors"
                         >
                             {link.name}
                         </a>
                     ))}
                     <Link
                         to="/login"
-                        className="font-tech text-xs uppercase tracking-[0.2em] text-game-dark hover:text-game-primary transition-colors"
+                        className="font-tech text-xs uppercase tracking-[0.2em] text-white hover:text-game-primary transition-colors"
                     >
                         Entrar
                     </Link>
@@ -62,7 +62,7 @@ const Navbar = ({ onOpenModal }) => {
 
                 {/* Mobile Menu Button */}
                 <div className="md:hidden">
-                    <button onClick={toggleMenu} className="text-game-dark hover:text-game-primary transition-colors">
+                    <button onClick={toggleMenu} className="text-white hover:text-game-primary transition-colors">
                         {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
                     </button>
                 </div>
@@ -75,14 +75,14 @@ const Navbar = ({ onOpenModal }) => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="fixed inset-0 top-[88px] h-[calc(100vh-88px)] bg-white z-40 md:hidden flex flex-col items-center justify-center gap-8 p-6"
+                        className="fixed inset-0 top-[88px] h-[calc(100vh-88px)] bg-game-dark z-40 md:hidden flex flex-col items-center justify-center gap-8 p-6"
                     >
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className="font-tech text-3xl uppercase tracking-tighter font-black text-game-dark hover:text-game-primary transition-all italic"
+                                className="font-tech text-3xl uppercase tracking-tighter font-black text-white hover:text-game-primary transition-all italic"
                             >
                                 {link.name}
                             </a>
@@ -90,7 +90,7 @@ const Navbar = ({ onOpenModal }) => {
                         <Link
                             to="/login"
                             onClick={() => setIsOpen(false)}
-                            className="font-tech text-xl uppercase tracking-widest text-game-dark border border-gray-200 w-full text-center py-4"
+                            className="font-tech text-xl uppercase tracking-widest text-white border border-white/10 w-full text-center py-4"
                         >
                             Entrar
                         </Link>

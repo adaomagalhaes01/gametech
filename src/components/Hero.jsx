@@ -13,17 +13,17 @@ const Hero = ({ onOpenModal }) => {
     const charY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
     return (
-        <section ref={ref} className="relative h-screen w-full overflow-hidden flex items-center bg-white">
+        <section ref={ref} className="relative h-screen w-full overflow-hidden flex items-center bg-game-dark">
             {/* Background Layer (Slow Parallax) */}
             <motion.div
                 style={{ y: backgroundY }}
                 className="absolute inset-0 z-0"
             >
-                <div className="absolute inset-0 bg-white/40 z-10 transition-colors duration-500"></div>
+                <div className="absolute inset-0 bg-game-dark/80 z-10 transition-colors duration-500"></div>
                 <img
                     src="/assets/game_forest.jpg"
                     alt="Game Backdrop"
-                    className="w-full h-full object-cover scale-110 opacity-20 grayscale"
+                    className="w-full h-full object-cover scale-110 opacity-30 blur-[2px]"
                     loading="lazy"
                 />
             </motion.div>
@@ -45,12 +45,12 @@ const Hero = ({ onOpenModal }) => {
                     >
                         Inovação & Jogos Digitais
                     </motion.div>
-                    <h1 className="text-4xl md:text-7xl font-tech font-black text-game-dark leading-none mb-6 italic uppercase tracking-tighter">
-                        GAMETECH
+                    <h1 className="text-4xl md:text-7xl font-tech font-black text-white leading-none mb-6 italic uppercase tracking-tighter">
+                        GAME<span className="text-game-primary">TECH</span>
                         <br />
-                        <span className="text-2xl md:text-4xl block mt-2 text-game-dark/60 italic">Inovando o Futuro Digital</span>
+                        <span className="text-2xl md:text-4xl block mt-2 text-white/40 italic font-medium">Inovando o Futuro Digital</span>
                     </h1>
-                    <p className="text-base md:text-lg text-game-dark/70 font-sans mb-10 max-w-xl leading-relaxed">
+                    <p className="text-base md:text-lg text-white/60 font-sans mb-10 max-w-xl leading-relaxed">
                         Startup angolana dedicada a transformar educação e entretenimento através de tecnologia de ponta e cultura local.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -77,27 +77,27 @@ const Hero = ({ onOpenModal }) => {
                     transition={{ duration: 1, delay: 0.8 }}
                     className="hidden lg:block relative w-[600px] h-[400px]"
                 >
-                    <div className="absolute inset-0 bg-game-primary/5 blur-[120px] rounded-full"></div>
-                    <div className="relative z-10 p-2 bg-white border-2 border-game-dark shadow-[20px_20px_0px_0px_rgba(255,70,85,1)]">
+                    <div className="absolute inset-0 bg-game-primary/20 blur-[120px] rounded-full"></div>
+                    <div className="relative z-10 p-2 bg-game-dark border border-white/10 shadow-[20px_20px_0px_0px_rgba(0,163,255,0.3)]">
                         <img
                             src="/assets/game_forest.jpg"
                             alt="Jornada da Coelha Gameplay"
-                            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                            className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-all duration-700"
                         />
                         <div className="absolute top-4 left-4 bg-game-primary text-white font-tech text-[10px] px-2 py-1 uppercase font-bold">LIVE ALPHA 0.1</div>
                     </div>
                     {/* Elementos decorativos estilo Riot */}
-                    <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-game-accent/20 blur-2xl"></div>
+                    <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-game-primary/20 blur-2xl"></div>
                 </motion.div>
             </div>
 
             {/* Grid Overlay */}
-            <div className="absolute inset-0 grid-pattern pointer-events-none opacity-20 z-10"></div>
+            <div className="absolute inset-0 grid-pattern pointer-events-none opacity-40 z-10"></div>
 
             <div className="absolute bottom-10 left-6 z-20 hidden md:block">
                 <div className="flex flex-col gap-2">
                     <div className="w-1 h-12 bg-game-primary"></div>
-                    <span className="font-tech text-[10px] uppercase tracking-[0.5em] vertical-text text-game-dark/40">SCROLL</span>
+                    <span className="font-tech text-[10px] uppercase tracking-[0.5em] vertical-text text-white/40">SCROLL</span>
                 </div>
             </div>
         </section>

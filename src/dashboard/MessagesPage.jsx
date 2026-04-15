@@ -5,7 +5,6 @@ import { Search, MessageSquare, Trash2, User, Phone, Mail, Briefcase, Clock, Che
 import { getBudgetRequests } from '../components/BudgetModal';
 
 const MessagesPage = () => {
-    const { isDarkMode } = useOutletContext();
     const [selectedMessage, setSelectedMessage] = useState(null);
     const [messages, setMessages] = useState([]);
     const [search, setSearch] = useState('');
@@ -83,23 +82,23 @@ const MessagesPage = () => {
         if (selectedMessage?.id === msg.id) {
             return base + "bg-game-purple/10 border-game-purple";
         }
-        return base + (isDarkMode ? 'bg-white/5 border-white/5 hover:border-white/20' : 'bg-white border-gray-100 hover:border-gray-200 shadow-sm');
+        return base + "bg-white/5 border-white/5 hover:border-white/20";
     };
 
     return (
         <div className="space-y-8">
             <div>
-                <h1 className={`text-4xl font-tech font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>Solicitações de Orçamento</h1>
-                <p className={isDarkMode ? 'text-white/60' : 'text-gray-500'}>Pedidos de orçamento enviados por clientes através do site.</p>
+                <h1 className="text-4xl font-tech font-bold text-white mb-2">Solicitações de Orçamento</h1>
+                <p className="text-white/60">Pedidos de orçamento enviados por clientes através do site.</p>
             </div>
 
             {filtered.length === 0 && !search ? (
-                <div className={`${isDarkMode ? 'glass-card' : 'bg-white border border-gray-100 shadow-sm'} p-16 flex flex-col items-center justify-center text-center rounded-xl`}>
+                <div className="glass-card p-16 flex flex-col items-center justify-center text-center rounded-xl">
                     <div className="w-24 h-24 rounded-3xl bg-game-purple/10 flex items-center justify-center mb-6">
                         <MessageSquare className="w-12 h-12 text-game-purple/40" />
                     </div>
-                    <h3 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>Nenhuma solicitação ainda</h3>
-                    <p className={`${isDarkMode ? 'text-white/40' : 'text-gray-400'} text-sm max-w-md`}>
+                    <h3 className="text-2xl font-bold text-white mb-2">Nenhuma solicitação ainda</h3>
+                    <p className="text-white/40 text-sm max-w-md">
                         As solicitações de orçamento feitas pelos clientes no site aparecerão aqui automaticamente. Clique em "Solicitar Orçamento" no site principal para testar.
                     </p>
                 </div>
@@ -108,17 +107,17 @@ const MessagesPage = () => {
                     {/* Lista */}
                     <div className="flex-1 space-y-4">
                         <div className="relative">
-                            <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`} />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                             <input
                                 type="text"
                                 placeholder="Pesquisar por nome, email ou serviço..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className={`w-full ${isDarkMode ? 'bg-white/5 border-white/10 text-white' : 'bg-white border-gray-200 shadow-sm text-gray-900'} border rounded-xl py-4 pl-12 pr-4 text-sm focus:ring-2 focus:ring-game-purple/50 outline-none`}
+                                className="w-full bg-white/5 border-white/10 text-white border rounded-xl py-4 pl-12 pr-4 text-sm focus:ring-2 focus:ring-game-purple/50 outline-none"
                             />
                         </div>
 
-                        <p className={`text-xs ${isDarkMode ? 'text-white/30' : 'text-gray-400'} px-1`}>
+                        <p className="text-white/30 text-xs px-1">
                             {filtered.length} solicitação{filtered.length !== 1 ? 'ões' : ''} encontrada{filtered.length !== 1 ? 's' : ''}
                         </p>
 
@@ -139,8 +138,8 @@ const MessagesPage = () => {
                                                     <User className="w-5 h-5 text-game-purple" />
                                                 </div>
                                                 <div>
-                                                    <h4 className={`font-bold text-sm ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{msg.name}</h4>
-                                                    <p className={`text-xs ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>{msg.email}</p>
+                                                    <h4 className="font-bold text-sm text-white">{msg.name}</h4>
+                                                    <p className="text-xs text-white/40">{msg.email}</p>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-2">
@@ -152,14 +151,14 @@ const MessagesPage = () => {
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2">
                                                 <Briefcase className="w-3 h-3 text-game-blue" />
-                                                <span className={`text-xs font-medium ${isDarkMode ? 'text-game-blue' : 'text-blue-600'}`}>{msg.service}</span>
+                                                <span className="text-xs font-medium text-game-blue">{msg.service}</span>
                                             </div>
-                                            <span className={`text-[10px] ${isDarkMode ? 'text-white/30' : 'text-gray-400'}`}>
+                                            <span className="text-[10px] text-white/30">
                                                 <Clock className="w-3 h-3 inline mr-1" />
                                                 {formatDate(msg.date)}
                                             </span>
                                         </div>
-                                        <p className={`mt-2 text-xs truncate ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>{msg.description}</p>
+                                        <p className="mt-2 text-xs truncate text-white/40">{msg.description}</p>
                                     </motion.div>
                                 );
                             })}
@@ -167,13 +166,13 @@ const MessagesPage = () => {
                     </div>
 
                     {/* Detalhes */}
-                    <div className={`w-full lg:w-[480px] min-h-[500px] rounded-xl ${isDarkMode ? 'glass-card' : 'bg-white border border-gray-100 shadow-lg'} relative`}>
+                    <div className="w-full lg:w-[480px] min-h-[500px] rounded-xl glass-card relative">
                         {selectedMessage ? (
                             <div className="p-8 space-y-6">
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <span className={`text-[10px] font-bold uppercase ${isDarkMode ? 'text-game-blue' : 'text-blue-600'}`}>Solicitação de Orçamento</span>
-                                        <h2 className={`text-2xl font-bold mt-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{selectedMessage.name}</h2>
+                                        <span className="text-[10px] font-bold uppercase text-game-blue">Solicitação de Orçamento</span>
+                                        <h2 className="text-2xl font-bold mt-1 text-white">{selectedMessage.name}</h2>
                                     </div>
                                     {(() => {
                                         const badge = getStatusBadge(selectedMessage.status);
@@ -186,41 +185,41 @@ const MessagesPage = () => {
                                 </div>
 
                                 {/* Info Grid */}
-                                <div className={`grid grid-cols-2 gap-4 p-4 rounded-xl ${isDarkMode ? 'bg-white/5' : 'bg-gray-50'}`}>
+                                <div className="grid grid-cols-2 gap-4 p-4 rounded-xl bg-white/5">
                                     <div className="flex items-center gap-2">
                                         <Mail className="w-4 h-4 text-game-purple" />
                                         <div>
                                             <p className="text-[10px] text-white/40 uppercase font-bold">Email</p>
-                                            <p className={`text-xs ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{selectedMessage.email}</p>
+                                            <p className="text-xs text-white">{selectedMessage.email}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Phone className="w-4 h-4 text-game-blue" />
                                         <div>
                                             <p className="text-[10px] text-white/40 uppercase font-bold">Telefone</p>
-                                            <p className={`text-xs ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{selectedMessage.phone || 'Não informado'}</p>
+                                            <p className="text-xs text-white">{selectedMessage.phone || 'Não informado'}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Briefcase className="w-4 h-4 text-game-purple" />
                                         <div>
                                             <p className="text-[10px] text-white/40 uppercase font-bold">Serviço</p>
-                                            <p className={`text-xs ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{selectedMessage.service}</p>
+                                            <p className="text-xs text-white">{selectedMessage.service}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Clock className="w-4 h-4 text-game-blue" />
                                         <div>
                                             <p className="text-[10px] text-white/40 uppercase font-bold">Data</p>
-                                            <p className={`text-xs ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{formatDate(selectedMessage.date)}</p>
+                                            <p className="text-xs text-white">{formatDate(selectedMessage.date)}</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Descrição */}
                                 <div>
-                                    <h4 className={`text-xs uppercase font-bold mb-2 ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>Descrição do Projeto</h4>
-                                    <div className={`p-5 rounded-xl ${isDarkMode ? 'bg-white/5' : 'bg-gray-50'} text-sm leading-relaxed ${isDarkMode ? 'text-white/80' : 'text-gray-600'}`}>
+                                    <h4 className="text-xs uppercase font-bold mb-2 text-white/40">Descrição do Projeto</h4>
+                                    <div className="p-5 rounded-xl bg-white/5 text-sm leading-relaxed text-white/80">
                                         {selectedMessage.description}
                                     </div>
                                 </div>
@@ -257,7 +256,7 @@ const MessagesPage = () => {
                                     {selectedMessage.email && (
                                         <a
                                             href={`mailto:${selectedMessage.email}?subject=Re: Orçamento GameTech - ${selectedMessage.service}`}
-                                            className={`block text-center py-3 rounded-xl border ${isDarkMode ? 'border-white/10 text-white/60 hover:bg-white/5' : 'border-gray-200 text-gray-600 hover:bg-gray-50'} transition-colors font-bold text-sm`}
+                                            className="block text-center py-3 rounded-xl border border-white/10 text-white/60 hover:bg-white/5 transition-colors font-bold text-sm"
                                         >
                                             <Mail className="w-4 h-4 inline mr-2" />
                                             Responder por Email
@@ -270,8 +269,8 @@ const MessagesPage = () => {
                                 <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-6">
                                     <MessageSquare className="w-10 h-10 text-white/20" />
                                 </div>
-                                <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>Selecione uma solicitação</h3>
-                                <p className={`${isDarkMode ? 'text-white/40' : 'text-gray-400'} text-sm`}>Clique numa solicitação ao lado para ver os detalhes do pedido de orçamento.</p>
+                                <h3 className="text-xl font-bold text-white mb-2">Selecione uma solicitação</h3>
+                                <p className="text-white/40 text-sm">Clique numa solicitação ao lado para ver os detalhes do pedido de orçamento.</p>
                             </div>
                         )}
                     </div>

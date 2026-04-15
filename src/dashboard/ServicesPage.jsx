@@ -4,7 +4,6 @@ import { useOutletContext } from 'react-router-dom';
 import { Plus, Search, Briefcase, Settings, Trash2, Edit2, X, ChevronRight } from 'lucide-react';
 
 const ServicesPage = () => {
-    const { isDarkMode } = useOutletContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const services = [
@@ -22,8 +21,8 @@ const ServicesPage = () => {
         <div className="space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className={`text-4xl font-tech font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>Serviços Tech</h1>
-                    <p className={`${isDarkMode ? 'text-white/60' : 'text-gray-500'}`}>Gestão de serviços oferecidos pela GameTech Angola.</p>
+                    <h1 className="text-4xl font-tech font-bold text-white mb-2">Serviços Tech</h1>
+                    <p className="text-white/60">Gestão de serviços oferecidos pela GameTech Angola.</p>
                 </div>
                 <button
                     onClick={() => setIsModalOpen(true)}
@@ -39,7 +38,7 @@ const ServicesPage = () => {
                     <motion.div
                         key={service.id}
                         whileHover={{ y: -5 }}
-                        className={`${isDarkMode ? 'glass-card' : 'bg-white p-6 rounded-xl border border-gray-100 shadow-sm'} relative overflow-hidden group`}
+                        className="glass-card relative overflow-hidden group"
                     >
                         <div className="flex justify-between items-start mb-6">
                             <div className="w-12 h-12 rounded-xl bg-game-blue/10 flex items-center justify-center">
@@ -50,17 +49,17 @@ const ServicesPage = () => {
                             </div>
                         </div>
 
-                        <h3 className={`text-xl font-bold mb-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{service.name}</h3>
+                        <h3 className="text-xl font-bold mb-1 text-white">{service.name}</h3>
                         <p className="text-white/40 text-sm mb-4">{service.category}</p>
 
                         <div className="flex items-center justify-between mt-6 pt-6 border-t border-white/10">
                             <div>
                                 <p className="text-[10px] uppercase text-white/40 font-bold mb-1">Preço Base</p>
-                                <p className={`font-tech font-bold ${isDarkMode ? 'text-game-purple' : 'text-gray-900'}`}>{formatKwanza(service.price)}</p>
+                                <p className="font-tech font-bold text-game-purple">{formatKwanza(service.price)}</p>
                             </div>
                             <div className="text-right">
                                 <p className="text-[10px] uppercase text-white/40 font-bold mb-1">Clientes</p>
-                                <p className={`font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{service.clients}</p>
+                                <p className="font-bold text-white">{service.clients}</p>
                             </div>
                         </div>
 
@@ -82,9 +81,9 @@ const ServicesPage = () => {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className={`${isDarkMode ? 'glass-card' : 'bg-white'} w-full max-w-lg relative z-10 p-8`}
+                            className="glass-card w-full max-w-lg relative z-10 p-8"
                         >
-                            <h2 className={`text-2xl font-tech font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Cadastrar Serviço</h2>
+                            <h2 className="text-2xl font-tech font-bold mb-6 text-white">Cadastrar Serviço</h2>
                             <div className="space-y-4">
                                 <input type="text" placeholder="Nome do Serviço" className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white outline-none focus:ring-2 focus:ring-game-purple/50" />
                                 <input type="text" placeholder="Categoria" className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white outline-none focus:ring-2 focus:ring-game-purple/50" />

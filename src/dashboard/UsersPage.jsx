@@ -190,7 +190,6 @@ const DeleteConfirmModal = ({ onClose, onConfirm, userName }) => (
 
 // ─── Main Page ──────────────────────────────────────────────────
 const UsersPage = () => {
-    const { isDarkMode } = useOutletContext();
     const [search, setSearch] = useState('');
     const [users, setUsers] = useState(initialUsers);
 
@@ -240,8 +239,8 @@ const UsersPage = () => {
             {/* ── Header ─────────────────────────────────── */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className={`text-4xl font-tech font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>Gestão de Usuários</h1>
-                    <p className={isDarkMode ? 'text-white/60' : 'text-gray-500'}>Controle quem tem acesso ao painel administrativo.</p>
+                    <h1 className="text-4xl font-tech font-bold text-white mb-2">Gestão de Usuários</h1>
+                    <p className="text-white/60">Controle quem tem acesso ao painel administrativo.</p>
                 </div>
                 <button onClick={() => setShowAddModal(true)} className="btn-primary flex items-center justify-center gap-2">
                     <UserPlus className="w-5 h-5" />
@@ -250,42 +249,42 @@ const UsersPage = () => {
             </div>
 
             {/* ── Table Card ─────────────────────────────── */}
-            <div className={`overflow-hidden rounded-xl border ${isDarkMode ? 'bg-white/5 border-white/10 shadow-xl' : 'bg-white border-gray-100 shadow-sm'}`}>
-                <div className={`p-6 border-b ${isDarkMode ? 'border-white/10' : 'border-gray-100'} flex flex-col md:flex-row md:items-center justify-between gap-4`}>
+            <div className="overflow-hidden rounded-xl border bg-white/5 border-white/10 shadow-xl">
+                <div className="p-6 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="relative flex-1 max-w-md">
-                        <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`} />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                         <input
                             type="text"
                             placeholder="Buscar usuários..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className={`w-full ${isDarkMode ? 'bg-white/5 border-white/10 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'} rounded-xl py-2 pl-10 pr-4 text-sm outline-none focus:ring-1 focus:ring-game-purple/50`}
+                            className="w-full bg-white/5 border-white/10 text-white rounded-xl py-2 pl-10 pr-4 text-sm outline-none focus:ring-1 focus:ring-game-purple/50"
                         />
                     </div>
                 </div>
 
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead className={isDarkMode ? 'bg-black/20' : 'bg-gray-50'}>
+                        <thead className="bg-black/20">
                             <tr>
-                                <th className={`px-6 py-4 text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>Usuário</th>
-                                <th className={`px-6 py-4 text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>Função</th>
-                                <th className={`px-6 py-4 text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>Status</th>
-                                <th className={`px-6 py-4 text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>Último Login</th>
-                                <th className={`px-6 py-4 text-xs font-bold uppercase tracking-wider text-right ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>Ações</th>
+                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Usuário</th>
+                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Função</th>
+                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Status</th>
+                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Último Login</th>
+                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-right text-white/40">Ações</th>
                             </tr>
                         </thead>
-                        <tbody className={`divide-y ${isDarkMode ? 'divide-white/10' : 'divide-gray-100'}`}>
+                        <tbody className="divide-y divide-white/10">
                             {filteredUsers.map((user) => (
-                                <tr key={user.id} className={`${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-gray-50'} transition-colors group`}>
+                                <tr key={user.id} className="hover:bg-white/5 transition-colors group">
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-full bg-game-purple/10 flex items-center justify-center border border-game-purple/20">
                                                 <User className="w-5 h-5 text-game-purple" />
                                             </div>
                                             <div>
-                                                <p className={`font-bold text-sm ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{user.name}</p>
-                                                <p className={`text-xs ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>{user.email}</p>
+                                                <p className="font-bold text-sm text-white">{user.name}</p>
+                                                <p className="text-xs text-white/40">{user.email}</p>
                                             </div>
                                         </div>
                                     </td>
@@ -294,9 +293,9 @@ const UsersPage = () => {
                                             {user.role === 'Administrador' ? (
                                                 <ShieldCheck className="w-4 h-4 text-game-blue" />
                                             ) : (
-                                                <Shield className={`w-4 h-4 ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`} />
+                                                <Shield className="w-4 h-4 text-white/40" />
                                             )}
-                                            <span className={`text-sm ${isDarkMode ? 'text-white/60' : 'text-gray-600'}`}>{user.role}</span>
+                                            <span className="text-sm text-white/60">{user.role}</span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
@@ -305,20 +304,20 @@ const UsersPage = () => {
                                         </span>
                                     </td>
                                     <td className="px-6 py-4">
-                                        <span className={`text-xs ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>{user.lastLogin}</span>
+                                        <span className="text-xs text-white/40">{user.lastLogin}</span>
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <div className="flex items-center justify-end gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                                             <button
                                                 onClick={() => setEditingUser(user)}
-                                                className={`p-2 rounded-lg transition-colors ${isDarkMode ? 'hover:bg-white/10 text-white/40 hover:text-game-purple' : 'hover:bg-gray-100 text-gray-400 hover:text-game-purple'}`}
+                                                className="p-2 rounded-lg transition-colors hover:bg-white/10 text-white/40 hover:text-game-purple"
                                                 title="Editar"
                                             >
                                                 <Edit2 className="w-4 h-4" />
                                             </button>
                                             <button
                                                 onClick={() => setDeletingUser(user)}
-                                                className={`p-2 rounded-lg transition-colors ${isDarkMode ? 'hover:bg-white/10 text-white/40 hover:text-red-500' : 'hover:bg-gray-100 text-gray-400 hover:text-red-500'}`}
+                                                className="p-2 rounded-lg transition-colors hover:bg-white/10 text-white/40 hover:text-red-500"
                                                 title="Eliminar"
                                             >
                                                 <Trash2 className="w-4 h-4" />
@@ -330,7 +329,7 @@ const UsersPage = () => {
                             {filteredUsers.length === 0 && (
                                 <tr>
                                     <td colSpan={5} className="px-6 py-12 text-center">
-                                        <p className={`text-sm ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>Nenhum usuário encontrado.</p>
+                                        <p className="text-sm text-white/40">Nenhum usuário encontrado.</p>
                                     </td>
                                 </tr>
                             )}
