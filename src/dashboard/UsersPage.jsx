@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useOutletContext } from 'react-router-dom';
 import { Search, UserPlus, Edit2, Trash2, Shield, ShieldCheck, User, X, AlertTriangle, Save } from 'lucide-react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
+const API_URL = 'http://localhost:5000/api';
 
 const roleOptions = ['Administrador', 'Desenvolvedor', 'Editor', 'Moderador'];
 const statusOptions = ['Ativo', 'Inativo'];
-
-const initialUsers = [
-    { id: 1, name: 'Admin GameTech', email: 'admin@gametech.ao', role: 'Administrador', status: 'Ativo', lastLogin: 'Agora' },
-    { id: 2, name: 'Adalmercio', email: 'adalmercio@gametech.ao', role: 'Desenvolvedor', status: 'Ativo', lastLogin: 'Há 2 horas' },
-    { id: 3, name: 'Diva Portela', email: 'diva@gametech.ao', role: 'Editor', status: 'Inativo', lastLogin: '3 dias atrás' },
-    { id: 4, name: 'Joel Tech', email: 'joel@gametech.ao', role: 'Moderador', status: 'Ativo', lastLogin: 'Ontem' },
-    { id: 5, name: 'Mauro Game', email: 'mauro@gametech.ao', role: 'Editor', status: 'Ativo', lastLogin: 'Há 5 horas' },
-];
 
 // ─── Modal Overlay ───────────────────────────────────────────────
 const ModalOverlay = ({ children, onClose }) => (
@@ -55,11 +51,11 @@ const UserFormModal = ({ onClose, onSave, user }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!form.name || !form.email) {
-            alert('Por favor, preencha todos os campos obrigatórios.');
+            toast.error('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
         if (!isEdit && !form.password) {
-            alert('Por favor, defina uma senha para o novo usuário.');
+            toast.error('Por favor, defina uma senha para o novo usuário.');
             return;
         }
         onSave(form);
@@ -188,44 +184,63 @@ const DeleteConfirmModal = ({ onClose, onConfirm, userName }) => (
     </ModalOverlay>
 );
 
-// ─── Main Page ──────────────────────────────────────────────────
 const UsersPage = () => {
     const [search, setSearch] = useState('');
-    const [users, setUsers] = useState(initialUsers);
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     // modal states
     const [showAddModal, setShowAddModal] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
     const [deletingUser, setDeletingUser] = useState(null);
 
+    useEffect(() => {
+        loadUsers();
+    }, []);
+
+    const loadUsers = async () => {
+        try {
+            const { data } = await axios.get(`${API_URL}/users`);
+            setUsers(data);
+            setLoading(false);
+        } catch (error) {
+            toast.error('Erro ao carregar usuários.');
+            setLoading(false);
+        }
+    };
+
     // ── handlers ────────────────────────────────────────────
-    const handleAddUser = (form) => {
-        const newUser = {
-            id: Date.now(),
-            name: form.name,
-            email: form.email,
-            role: form.role,
-            status: form.status,
-            lastLogin: 'Nunca',
-        };
-        setUsers((prev) => [...prev, newUser]);
-        setShowAddModal(false);
+    const handleAddUser = async (form) => {
+        try {
+            await axios.post(`${API_URL}/users`, form);
+            toast.success('Usuário criado com sucesso!');
+            loadUsers();
+            setShowAddModal(false);
+        } catch (error) {
+            toast.error('Erro ao criar usuário.');
+        }
     };
 
-    const handleEditUser = (form) => {
-        setUsers((prev) =>
-            prev.map((u) =>
-                u.id === editingUser.id
-                    ? { ...u, name: form.name, email: form.email, role: form.role, status: form.status }
-                    : u
-            )
-        );
-        setEditingUser(null);
+    const handleEditUser = async (form) => {
+        try {
+            await axios.put(`${API_URL}/users/${editingUser.id}`, form);
+            toast.success('Usuário atualizado!');
+            loadUsers();
+            setEditingUser(null);
+        } catch (error) {
+            toast.error('Erro ao atualizar usuário.');
+        }
     };
 
-    const handleDeleteUser = () => {
-        setUsers((prev) => prev.filter((u) => u.id !== deletingUser.id));
-        setDeletingUser(null);
+    const handleDeleteUser = async () => {
+        try {
+            await axios.delete(`${API_URL}/users/${deletingUser.id}`);
+            toast.success('Usuário removido!');
+            loadUsers();
+            setDeletingUser(null);
+        } catch (error) {
+            toast.error('Erro ao remover usuário.');
+        }
     };
 
     const filteredUsers = users.filter(
@@ -304,7 +319,7 @@ const UsersPage = () => {
                                         </span>
                                     </td>
                                     <td className="px-6 py-4">
-                                        <span className="text-xs text-white/40">{user.lastLogin}</span>
+                                        <span className="text-xs text-white/40">{user.last_login ? new Date(user.last_login).toLocaleString('pt-AO') : 'Nunca'}</span>
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <div className="flex items-center justify-end gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">

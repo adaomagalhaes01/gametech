@@ -27,6 +27,21 @@ router.post('/', async (req, res) => {
     }
 });
 
+// PUT update item
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, category, price, stock, description, status } = req.body;
+    try {
+        await db.query(
+            'UPDATE items SET name = ?, category = ?, price = ?, stock = ?, description = ?, status = ? WHERE id = ?',
+            [name, category, price, stock, description, status, id]
+        );
+        res.json({ message: 'Item updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // DELETE item
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;

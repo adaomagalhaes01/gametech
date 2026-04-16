@@ -39,6 +39,21 @@ router.patch('/:id/status', async (req, res) => {
     }
 });
 
+// PUT update budget request
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, email, phone, service, description, status } = req.body;
+    try {
+        await db.query(
+            'UPDATE budget_requests SET name = ?, email = ?, phone = ?, service = ?, description = ?, status = ? WHERE id = ?',
+            [name, email, phone, service, description, status, id]
+        );
+        res.json({ message: 'Budget request updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // DELETE request
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;

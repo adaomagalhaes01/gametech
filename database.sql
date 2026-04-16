@@ -38,10 +38,18 @@ CREATE TABLE IF NOT EXISTS items (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
--- 4. Inserção de Dados Iniciais para Teste
+-- 4. Tabela de Configurações Gerais
+CREATE TABLE IF NOT EXISTS settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    setting_key VARCHAR(100) NOT NULL UNIQUE,
+    setting_value TEXT,
+    description VARCHAR(255)
+) ENGINE=InnoDB;
+
+-- Inserção de Dados Iniciais
 INSERT INTO users (name, email, password, role, status) VALUES 
-('Admin GameTech', 'admin@gametech.ao', '$2y$10$abcdefghijklmnopqrstuv', 'Administrador', 'Ativo'),
-('Adalmercio', 'adalmercio@gametech.ao', '$2y$10$abcdefghijklmnopqrstuv', 'Desenvolvedor', 'Ativo');
+('Admin GameTech', 'admin@gametech.ao', 'admin123', 'Administrador', 'Ativo'),
+('Adalmercio', 'adalmercio@gametech.ao', '123456', 'Desenvolvedor', 'Ativo');
 
 INSERT INTO items (name, category, price, stock, status) VALUES 
 ('Angola Quest: Aventura', 'Aventura', 15000.00, 45, 'Disponível'),
@@ -50,5 +58,7 @@ INSERT INTO items (name, category, price, stock, status) VALUES
 ('Tech Master Pro', 'Simulação', 55000.00, 5, 'Últimas Unidades'),
 ('Batalha do Huambo', 'Acção', 30000.00, 0, 'Esgotado');
 
-INSERT INTO budget_requests (name, email, phone, service, description, status) VALUES 
-('Carlos Silva', 'carlos@email.com', '923000111', 'Pacote Intermediário', 'Gostaria de desenvolver um jogo educativo para crianças.', 'pendente');
+INSERT INTO settings (setting_key, setting_value, description) VALUES 
+('site_name', 'GameTech Angola', 'Nome do Site'),
+('currency', 'Kz', 'Moeda Local'),
+('contact_email', 'contacto@gametech.ao', 'Email de Contacto');

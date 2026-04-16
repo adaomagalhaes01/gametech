@@ -20,14 +20,47 @@ const AdminLayout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const navigate = useNavigate();
 
+    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('gametech_user') || '{}'));
+
+    React.useEffect(() => {
+        const handleStorageUpdate = () => {
+            const updated = JSON.parse(localStorage.getItem('gametech_user') || '{}');
+            setCurrentUser(updated);
+        };
+        window.addEventListener('storage', handleStorageUpdate);
+        window.addEventListener('profileUpdate', handleStorageUpdate); // Custom event
+        return () => {
+            window.removeEventListener('storage', handleStorageUpdate);
+            window.removeEventListener('profileUpdate', handleStorageUpdate);
+        };
+    }, []);
+
+    const userInitials = currentUser.name ? currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) : 'AD';
+
     const menuItems = [
-        { icon: LayoutDashboard, label: 'Painel de Controle', path: '/admin' },
-        { icon: Database, label: 'Lista de Jogos', path: '/admin/items' },
-        { icon: Briefcase, label: 'Serviços Tech', path: '/admin/services' },
-        { icon: MessageSquare, label: 'Solicitações/Mensagens', path: '/admin/messages' },
-        { icon: Users, label: 'Usuários', path: '/admin/users' },
-        { icon: Settings, label: 'Configurações', path: '/admin/settings' },
+        { icon: LayoutDashboard, label: 'Painel de Controle', path: '/admin', roles: ['Administrador', 'Desenvolvedor', 'Editor', 'Moderador'] },
+        { icon: Database, label: 'Lista de Jogos', path: '/admin/items', roles: ['Administrador', 'Desenvolvedor', 'Editor'] },
+        { icon: Briefcase, label: 'Serviços Tech', path: '/admin/services', roles: ['Administrador', 'Desenvolvedor', 'Editor'] },
+        { icon: MessageSquare, label: 'Solicitações/Mensagens', path: '/admin/messages', roles: ['Administrador', 'Desenvolvedor', 'Moderador'] },
+        { icon: Users, label: 'Usuários', path: '/admin/users', roles: ['Administrador'] },
+        { icon: Settings, label: 'Configurações', path: '/admin/settings', roles: ['Administrador'] },
     ];
+
+    const filteredMenu = menuItems.filter(item => item.roles.includes(currentUser.role || 'Moderador'));
+
+    // Redirecionamento de segurança se tentar acessar rota proibida
+    React.useEffect(() => {
+        const currentPath = window.location.pathname;
+        const item = menuItems.find(i => i.path === currentPath);
+        if (item && !item.roles.includes(currentUser.role)) {
+            navigate('/admin');
+        }
+    }, [currentUser.role, navigate]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('gametech_user');
+        navigate('/login');
+    };
 
     const getNavLinkClass = ({ isActive }) => {
         const base = "flex items-center gap-4 p-3 rounded-xl transition-all duration-300 group ";
@@ -64,7 +97,7 @@ const AdminLayout = () => {
                 </div>
 
                 <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-                    {menuItems.map((item) => (
+                    {filteredMenu.map((item) => (
                         <NavLink
                             key={item.path}
                             to={item.path}
@@ -90,7 +123,7 @@ const AdminLayout = () => {
 
                 <div className="p-4 border-t border-white/10">
                     <button
-                        onClick={() => navigate('/login')}
+                        onClick={handleLogout}
                         className="flex items-center gap-4 p-3 w-full rounded-xl transition-all duration-300 text-white/60 hover:bg-red-500/10 hover:text-red-500"
                     >
                         <LogOut className="w-6 h-6 min-w-[24px]" />
@@ -138,14 +171,21 @@ const AdminLayout = () => {
                             <Bell className="w-6 h-6" />
                             <span className="absolute top-2 right-2 w-2 h-2 bg-game-purple rounded-full"></span>
                         </button>
-                        <div className="flex items-center gap-3 pl-6 border-l border-white/10">
+                        <div
+                            onClick={() => navigate('/admin/profile')}
+                            className="flex items-center gap-3 pl-6 border-l border-white/10 cursor-pointer group"
+                        >
                             <div className="text-right hidden sm:block">
-                                <p className="text-sm font-bold leading-none text-white">Admin</p>
-                                <p className="text-xs mt-1 text-white/40">Angola | Kz</p>
+                                <p className="text-sm font-bold leading-none text-white group-hover:text-game-purple transition-colors">{currentUser.name || 'Admin'}</p>
+                                <p className="text-[10px] mt-1 text-white/40 uppercase tracking-tighter font-bold">{currentUser.role || 'Super User'}</p>
                             </div>
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-game-purple to-game-blue p-[2px]">
-                                <div className="w-full h-full rounded-full bg-game-dark text-white flex items-center justify-center">
-                                    <span className="font-bold text-sm">AD</span>
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-game-purple to-game-blue p-[2px] shadow-[0_0_10px_rgba(138,43,226,0.3)] group-hover:shadow-game-purple/50 transition-all">
+                                <div className="w-full h-full rounded-full bg-game-dark text-white flex items-center justify-center border border-white/5 overflow-hidden">
+                                    {currentUser.photo ? (
+                                        <img src={currentUser.photo} alt="Avatar" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <span className="font-tech font-bold text-xs">{userInitials}</span>
+                                    )}
                                 </div>
                             </div>
                         </div>

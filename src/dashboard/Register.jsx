@@ -1,15 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { UserPlus, Mail, Lock, User, Gamepad2, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
+const API_URL = 'http://localhost:5000/api';
 
 const Register = () => {
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simulate register
-        navigate('/admin');
+
+        if (formData.password !== formData.confirmPassword) {
+            toast.error('As senhas não coincidem!');
+            return;
+        }
+
+        try {
+            await axios.post(`${API_URL}/users`, {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                role: 'Editor',
+                status: 'Ativo'
+            });
+
+            toast.success('Conta criada com sucesso! Faça login para continuar.');
+            navigate('/login');
+        } catch (error) {
+            const msg = error.response?.data?.error || error.response?.data?.message || 'Erro ao criar conta. Verifique sua conexão.';
+            toast.error(msg);
+        }
     };
 
     return (
@@ -39,6 +68,8 @@ const Register = () => {
                                 <input
                                     type="text"
                                     required
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-game-purple/50 transition-all"
                                     placeholder="Seu nome"
                                 />
@@ -52,6 +83,8 @@ const Register = () => {
                                 <input
                                     type="email"
                                     required
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-game-purple/50 transition-all"
                                     placeholder="seu@email.com"
                                 />
@@ -66,6 +99,8 @@ const Register = () => {
                             <input
                                 type="password"
                                 required
+                                value={formData.password}
+                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-game-purple/50 transition-all"
                                 placeholder="••••••••"
                             />
@@ -79,6 +114,8 @@ const Register = () => {
                             <input
                                 type="password"
                                 required
+                                value={formData.confirmPassword}
+                                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                                 className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-game-purple/50 transition-all"
                                 placeholder="••••••••"
                             />

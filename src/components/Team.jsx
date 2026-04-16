@@ -19,11 +19,18 @@ const Team = () => {
             ]
         },
         {
+            name: 'Suporte & Conteúdo',
+            members: [
+                { name: 'Dionísio Casule', role: 'Technical Support', img: '/Dionisio_Casule.JPG' },
+                { name: 'Tonilson Felipe', role: 'Content Editor', img: '/Tonilson_Felipe.JPG' },
+            ]
+        },
+        {
             name: 'Desenvolvimento & Design',
             members: [
-                { name: 'Adão Magalhães', role: 'Lead Developer', img: '/Adao_Magalhaes.jpg' },
+                { name: 'Adão Magalhães', role: 'Lead Developer', img: '/Adao_Magalhaes.jpg' },
                 { name: 'Shelsio Ferreira', role: 'Fullstack Expert', img: '/Shelsio_Ferreira.JPG' },
-                { name: 'Adalmercio Almedia', role: 'Backend Developer', img: '/Adalmercio_Almedia.JPG' },
+                { name: 'Adalmercio Almeida', role: 'Backend Developer', img: '/Adalmercio_Almeida.JPG' },
                 { name: 'Diva Ventura', role: 'Frontend Developer', img: '/Diva_Ventura.jpeg' },
             ]
         }
@@ -40,7 +47,7 @@ const Team = () => {
                 </div>
 
                 {departments.map((dept, dIdx) => (
-                    <div key={dept.name} className="mb-20 last:mb-0">
+                    <div key={dept.name} className="mb-20 last:mb-0 text-left">
                         <div className="flex items-center gap-4 mb-10">
                             <div className="h-[2px] w-12 bg-game-primary"></div>
                             <h4 className="text-xl font-tech font-black text-white uppercase tracking-tighter italic">{dept.name}</h4>
@@ -57,8 +64,13 @@ const Team = () => {
                                     whileHover={{ y: -10 }}
                                     className="group relative"
                                 >
-                                    <div className="relative aspect-square overflow-hidden border border-white/10 opacity-80 group-hover:opacity-100 group-hover:border-game-primary/50 transition-all duration-700 shadow-2xl group-hover:shadow-game-primary/20 rounded-2xl">
-                                        <img src={member.img} alt={member.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                    <div className="relative aspect-square overflow-hidden border border-white/10 group-hover:border-game-primary/50 transition-all duration-700 shadow-2xl group-hover:shadow-game-primary/20 rounded-2xl">
+                                        <img
+                                            src={member.img}
+                                            alt={member.name}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                            style={{ objectPosition: (member.name.includes('Dionísio') || member.name.includes('Tonilson')) ? 'top' : 'center' }}
+                                        />
 
                                         {/* Social Overlay */}
                                         <div className="absolute bottom-4 right-4 flex gap-2 translate-y-12 group-hover:translate-y-0 transition-transform duration-500">

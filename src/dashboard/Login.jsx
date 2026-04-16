@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { LogIn, Mail, Lock, Gamepad2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
+const API_URL = 'http://localhost:5000/api';
 
 const Login = () => {
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simulate login
-        navigate('/admin');
+        setIsLoading(true);
+        const loadingToast = toast.loading('Autenticando...');
+        try {
+            const { data } = await axios.post(`${API_URL}/users/login`, formData, { timeout: 8000 });
+
+            toast.dismiss(loadingToast);
+            localStorage.setItem('gametech_user', JSON.stringify(data));
+            toast.success(`Bem-vindo de volta, ${data.name}!`);
+            navigate('/admin');
+        } catch (error) {
+            toast.dismiss(loadingToast);
+            const msg = error.response?.data?.message || 'Erro de conexão. Verifique se o servidor e o banco de dados estão ligados.';
+            toast.error(msg);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -38,6 +61,8 @@ const Login = () => {
                             <input
                                 type="email"
                                 required
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-game-purple/50 transition-all"
                                 placeholder="seu@email.com"
                             />
@@ -51,6 +76,8 @@ const Login = () => {
                             <input
                                 type="password"
                                 required
+                                value={formData.password}
+                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-game-purple/50 transition-all"
                                 placeholder="••••••••"
                             />

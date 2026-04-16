@@ -1,34 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { X, Send } from 'lucide-react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
-// Shared store for budget requests
-const STORAGE_KEY = 'gametech_budget_requests';
-
-export const getBudgetRequests = () => {
-    try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
-    } catch {
-        return [];
-    }
-};
-
-export const saveBudgetRequest = (request) => {
-    const existing = getBudgetRequests();
-    const newRequest = {
-        id: Date.now(),
-        ...request,
-        date: new Date().toISOString(),
-        status: 'pendente',
-    };
-    existing.unshift(newRequest);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-    return newRequest;
-};
+const API_URL = 'http://localhost:5000/api';
 
 const BudgetModal = ({ onClose }) => {
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
         const data = {
@@ -40,13 +19,33 @@ const BudgetModal = ({ onClose }) => {
         };
 
         if (!data.name || !data.email || !data.description) {
-            alert('Por favor, preencha todos os campos obrigatórios.');
+            toast.error('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
 
-        saveBudgetRequest(data);
-        alert('Pedido de orçamento enviado com sucesso! A equipa GameTech entrará em contacto.');
-        onClose();
+        const loadingToast = toast.loading('Enviando solicitação...');
+        try {
+            await axios.post(`${API_URL}/budget`, data, { timeout: 10000 });
+            toast.dismiss(loadingToast);
+            toast.success('Solicitação enviada com sucesso! Entraremos em contacto.', {
+                duration: 5000,
+                style: {
+                    background: '#0d0d1a',
+                    color: '#fff',
+                    border: '1px solid rgba(0, 163, 255, 0.2)',
+                },
+                iconTheme: {
+                    primary: '#00A3FF',
+                    secondary: '#fff',
+                },
+            });
+            onClose();
+        } catch (error) {
+            toast.dismiss(loadingToast);
+            const msg = error.response?.data?.message || 'Erro ao conectar ao servidor. Verifique se o backend está ligado.';
+            toast.error(msg);
+            console.error(error);
+        }
     };
 
     return (
@@ -100,18 +99,28 @@ const BudgetModal = ({ onClose }) => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-[9px] uppercase tracking-[0.3em] text-white/40 mb-1 font-bold font-tech text-left">Plano de Interesse *</label>
-                                <select
-                                    name="servico"
-                                    required
-                                    className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-game-primary transition-colors appearance-none rounded-xl"
-                                >
-                                    <option className="bg-game-dark">Pacote Básico</option>
-                                    <option className="bg-game-dark">Pacote Intermediário</option>
-                                    <option className="bg-game-dark">Pacote Premium</option>
-                                    <option className="bg-game-dark">Consultoria Geral</option>
-                                </select>
+                                <label className="block text-[9px] uppercase tracking-[0.3em] text-white/40 mb-1 font-bold font-tech text-left">Telefone</label>
+                                <input
+                                    name="telefone"
+                                    type="text"
+                                    className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-game-primary transition-colors rounded-xl"
+                                    placeholder="+244 ..."
+                                />
                             </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-[9px] uppercase tracking-[0.3em] text-white/40 mb-1 font-bold font-tech text-left">Plano de Interesse *</label>
+                            <select
+                                name="servico"
+                                required
+                                className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-game-primary transition-colors appearance-none rounded-xl"
+                            >
+                                <option className="bg-game-dark">Pacote Básico</option>
+                                <option className="bg-game-dark">Pacote Intermediário</option>
+                                <option className="bg-game-dark">Pacote Premium</option>
+                                <option className="bg-game-dark">Consultoria Geral</option>
+                            </select>
                         </div>
 
                         <div>

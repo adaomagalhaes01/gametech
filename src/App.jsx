@@ -10,10 +10,14 @@ import ServicesPage from './dashboard/ServicesPage';
 import MessagesPage from './dashboard/MessagesPage';
 import UsersPage from './dashboard/UsersPage';
 import SettingsPage from './dashboard/SettingsPage';
+import ProfilePage from './dashboard/ProfilePage';
+
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
@@ -28,6 +32,7 @@ function App() {
           <Route path="messages" element={<MessagesPage />} />
           <Route path="users" element={<UsersPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
 
         {/* Fallback */}
